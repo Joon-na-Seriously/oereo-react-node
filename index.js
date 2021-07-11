@@ -1,15 +1,16 @@
 var express = require('express')
 var app = express()
 const port = 5000
-const dbConfig = require('./secrets.json');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const {User} = require('./models/User');
 
+const config = require('./config/key');
+
 app.use(bodyParser.urlencoded({extended: true}));  // application/x-www-form-urlencoded
 app.use(bodyParser.json());  // application/json
 
-mongoose.connect(`mongodb+srv://oereo:${dbConfig.mongoDBPassword}@boilerplate.t4pdx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+mongoose.connect(config.mongoURI, {
     userNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(() => console.log('MongoDB Connected')).catch(err => console.log(err))
 
