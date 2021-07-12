@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
   res.send('hello world!!!')
 })
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     const user = new User(req.body);
     user.save((err, userInfo) => {
         if (err) return res.json({success:false, err})
@@ -31,7 +31,7 @@ app.post('/register', (req, res) => {
     });
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
     // search request email in datebase
     User.findOne({emial: req.body.email}, (err, user) => {
         if(!user) {
