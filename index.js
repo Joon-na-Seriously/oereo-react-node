@@ -4,7 +4,8 @@ const port = 5000
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const {User} = require('./models/User');
+const { User } = require('./models/User');
+const { auth } = require('./middleware/auth');
 
 const config = require('./config/key');
 
@@ -56,6 +57,10 @@ app.post('/api/users/login', (req, res) => {
             .json({loginSuccess: true, userId: user._id});
         })
     })
+})
+
+app.get('/api/users/auth', auth, (req, res)=> {
+
 })
 
 app.listen(port, ()=> console.log(`Example app listening on port ${port}!`))
